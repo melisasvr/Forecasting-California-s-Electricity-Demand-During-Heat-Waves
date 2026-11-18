@@ -1,0 +1,85 @@
+seed: 42
+
+paths:
+  raw: data/raw
+  interim: data/interim
+  processed: data/processed
+  reports: reports
+  models: models
+
+eia:
+  respondent: CISO          # CAISO
+  type: D                   # D = demand
+  start: "2021-01-01T00"
+  api_key_env: EIA_API_KEY  # set in a .env file or as an environment variable, never commit it
+
+weather:
+  start: "2021-01-01"
+  timezone: UTC             # keep everything in UTC until the very end
+  variables:
+    - temperature_2m
+    - apparent_temperature
+    - relative_humidity_2m
+    - dew_point_2m
+    - wind_speed_10m
+    - cloud_cover
+    - precipitation
+  # ERA5 reanalysis (gridded, NOT station observations)
+  era5_url: https://archive-api.open-meteo.com/v1/archive
+  # Archived NWP forecasts, used as the "forecast weather" in backtests
+  forecast_archive_url: https://historical-forecast-api.open-meteo.com/v1/forecast
+  # Live forecast for the demo
+  live_forecast_url: https://api.open-meteo.com/v1/forecast
+  # Weights = share of the 2020 Census population of the counties each location represents:
+  #   Los Angeles County, San Diego County, Fresno County, Sacramento County, and four core
+  #   Bay Area counties (Alameda, Contra Costa, San Francisco, Santa Clara).
+  # Orange, Riverside, San Bernardino and other counties are not represented. See README.
+  locations:
+    - {name: Los Angeles, lat: 34.05, lon: -118.24, population: 10014009, weight: 0.464367}
+    - {name: San Diego, lat: 32.72, lon: -117.16, population: 3298634, weight: 0.152963}
+    - {name: Fresno, lat: 36.74, lon: -119.79, population: 1008654, weight: 0.046773}
+    - {name: Sacramento, lat: 38.58, lon: -121.49, population: 1585055, weight: 0.073502}
+    - {name: Bay Area, lat: 37.77, lon: -122.42, population: 5658504, weight: 0.262395}
+
+heatwave:                    # LOCKED before any model evaluation. Do not tune.
+  index: population_weighted_daily_max_temperature
+  percentile: 0.90           # per calendar month
+  min_consecutive_days: 3
+  # Headline = California cooling season. Set after inspecting labels but BEFORE any model errors.
+  # History: first Jun-Sep, then May-Oct once the last-8-weeks holdout turned out to contain
+  # real October heat waves. Final. Do not change after models are evaluated.
+  headline_months: [5, 6, 7, 8, 9, 10]
+
+evaluation:
+  holdout_weeks: 8           # final test, untouched until the end
+  horizon_hours: 24
+  quantiles: [0.1, 0.5, 0.9]
+  local_timezone: America/Los_Angeles
+  peak_hours_local: [16, 17, 18, 19, 20, 21]   # local hours (hour beginning)
+  min_train_days: 365        # first walk-forward origin = first feature origin + this
+  refit_every_days: 28       # models are refit this often during walk-forward validation
+
+features:
+  demand_lags_hours: [24, 48, 72, 168, 336]
+  rolling_windows_hours: [24, 72, 168]
+  degree_base_c: 18.3            # 65 F
+  temp_bin_edges_c: [10, 15, 20, 25, 30, 35, 40]
+  holiday_cap_days: 7
+
+models:                      # fixed, untuned settings (no hyperparameter search was run)
+  lightgbm:
+    n_estimators: 400
+    learning_rate: 0.05
+    num_leaves: 31
+    min_child_samples: 20
+    subsample: 0.8
+    subsample_freq: 1
+    colsample_bytree: 0.8
+  ridge:
+    alphas: [0.1, 1.0, 10.0, 100.0, 1000.0]
+  sarimax:                   # regression with ARMA errors and Fourier daily seasonality
+    window_days: 56
+    order: [2, 0, 1]
+    fourier_harmonics: 4
+    maxiter: 100
+    evaluate_every_n_origins: 1

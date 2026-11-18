@@ -1,0 +1,242 @@
+{
+  "finished_utc": "2026-11-18T11:55:36.184635+00:00",
+  "total_seconds": 582.7,
+  "git_commit": null,
+  "seed": 42,
+  "models": [
+    "baseline_weekly",
+    "baseline_yearly",
+    "baseline_mean7",
+    "ridge",
+    "lightgbm",
+    "sarimax"
+  ],
+  "evaluation": {
+    "holdout_weeks": 8,
+    "horizon_hours": 24,
+    "quantiles": [
+      0.1,
+      0.5,
+      0.9
+    ],
+    "local_timezone": "America/Los_Angeles",
+    "peak_hours_local": [
+      16,
+      17,
+      18,
+      19,
+      20,
+      21
+    ],
+    "min_train_days": 365,
+    "refit_every_days": 84
+  },
+  "model_settings": {
+    "lightgbm": {
+      "n_estimators": 150,
+      "learning_rate": 0.05,
+      "num_leaves": 31,
+      "min_child_samples": 20,
+      "subsample": 0.8,
+      "subsample_freq": 1,
+      "colsample_bytree": 0.8
+    },
+    "ridge": {
+      "alphas": [
+        0.1,
+        1.0,
+        10.0,
+        100.0,
+        1000.0
+      ]
+    },
+    "sarimax": {
+      "window_days": 56,
+      "order": [
+        2,
+        0,
+        1
+      ],
+      "fourier_harmonics": 4,
+      "maxiter": 100,
+      "evaluate_every_n_origins": 1
+    }
+  },
+  "n_features": 71,
+  "versions": {
+    "python": "3.12.3",
+    "pandas": "2.3.3",
+    "numpy": "2.1.3",
+    "sklearn": "1.9.1",
+    "lightgbm": "4.6.0",
+    "statsmodels": "0.14.6"
+  },
+  "holdout_start": "2026-09-20 07:00:00+00:00",
+  "n_validation_origins": 1681,
+  "n_holdout_origins": 56,
+  "refit_every_days": 84,
+  "folds": [
+    {
+      "fold": 0,
+      "train_rows": 8175,
+      "train_last_target": "2022-01-15 07:00:00+00:00",
+      "test_first_origin": "2022-01-15 08:00:00+00:00",
+      "test_last_origin": "2022-04-08 07:00:00+00:00"
+    },
+    {
+      "fold": 1,
+      "train_rows": 10190,
+      "train_last_target": "2022-04-09 06:00:00+00:00",
+      "test_first_origin": "2022-04-09 07:00:00+00:00",
+      "test_last_origin": "2022-07-15 07:00:00+00:00"
+    },
+    {
+      "fold": 2,
+      "train_rows": 12202,
+      "train_last_target": "2022-07-16 06:00:00+00:00",
+      "test_first_origin": "2022-07-16 07:00:00+00:00",
+      "test_last_origin": "2022-10-07 07:00:00+00:00"
+    },
+    {
+      "fold": 3,
+      "train_rows": 14218,
+      "train_last_target": "2022-10-08 06:00:00+00:00",
+      "test_first_origin": "2022-10-08 07:00:00+00:00",
+      "test_last_origin": "2022-12-30 08:00:00+00:00"
+    },
+    {
+      "fold": 4,
+      "train_rows": 16234,
+      "train_last_target": "2022-12-31 07:00:00+00:00",
+      "test_first_origin": "2022-12-31 08:00:00+00:00",
+      "test_last_origin": "2023-03-24 07:00:00+00:00"
+    },
+    {
+      "fold": 5,
+      "train_rows": 18250,
+      "train_last_target": "2023-03-25 06:00:00+00:00",
+      "test_first_origin": "2023-03-25 07:00:00+00:00",
+      "test_last_origin": "2023-06-16 07:00:00+00:00"
+    },
+    {
+      "fold": 6,
+      "train_rows": 20266,
+      "train_last_target": "2023-06-17 06:00:00+00:00",
+      "test_first_origin": "2023-06-17 07:00:00+00:00",
+      "test_last_origin": "2023-09-08 07:00:00+00:00"
+    },
+    {
+      "fold": 7,
+      "train_rows": 22282,
+      "train_last_target": "2023-09-09 06:00:00+00:00",
+      "test_first_origin": "2023-09-09 07:00:00+00:00",
+      "test_last_origin": "2023-12-15 08:00:00+00:00"
+    },
+    {
+      "fold": 8,
+      "train_rows": 24294,
+      "train_last_target": "2023-12-16 07:00:00+00:00",
+      "test_first_origin": "2023-12-16 08:00:00+00:00",
+      "test_last_origin": "2024-03-08 08:00:00+00:00"
+    },
+    {
+      "fold": 9,
+      "train_rows": 26310,
+      "train_last_target": "2024-03-09 07:00:00+00:00",
+      "test_first_origin": "2024-03-09 08:00:00+00:00",
+      "test_last_origin": "2024-05-31 07:00:00+00:00"
+    },
+    {
+      "fold": 10,
+      "train_rows": 28326,
+      "train_last_target": "2024-06-01 06:00:00+00:00",
+      "test_first_origin": "2024-06-01 07:00:00+00:00",
+      "test_last_origin": "2024-08-23 07:00:00+00:00"
+    },
+    {
+      "fold": 11,
+      "train_rows": 30342,
+      "train_last_target": "2024-08-24 06:00:00+00:00",
+      "test_first_origin": "2024-08-24 07:00:00+00:00",
+      "test_last_origin": "2024-11-15 08:00:00+00:00"
+    },
+    {
+      "fold": 12,
+      "train_rows": 32358,
+      "train_last_target": "2024-11-16 07:00:00+00:00",
+      "test_first_origin": "2024-11-16 08:00:00+00:00",
+      "test_last_origin": "2025-02-07 08:00:00+00:00"
+    },
+    {
+      "fold": 13,
+      "train_rows": 34374,
+      "train_last_target": "2025-02-08 07:00:00+00:00",
+      "test_first_origin": "2025-02-08 08:00:00+00:00",
+      "test_last_origin": "2025-05-02 07:00:00+00:00"
+    },
+    {
+      "fold": 14,
+      "train_rows": 36390,
+      "train_last_target": "2025-05-03 06:00:00+00:00",
+      "test_first_origin": "2025-05-03 07:00:00+00:00",
+      "test_last_origin": "2025-07-25 07:00:00+00:00"
+    },
+    {
+      "fold": 15,
+      "train_rows": 38406,
+      "train_last_target": "2025-07-26 06:00:00+00:00",
+      "test_first_origin": "2025-07-26 07:00:00+00:00",
+      "test_last_origin": "2025-10-17 07:00:00+00:00"
+    },
+    {
+      "fold": 16,
+      "train_rows": 40422,
+      "train_last_target": "2025-10-18 06:00:00+00:00",
+      "test_first_origin": "2025-10-18 07:00:00+00:00",
+      "test_last_origin": "2026-01-09 08:00:00+00:00"
+    },
+    {
+      "fold": 17,
+      "train_rows": 42438,
+      "train_last_target": "2026-01-10 07:00:00+00:00",
+      "test_first_origin": "2026-01-10 08:00:00+00:00",
+      "test_last_origin": "2026-04-03 07:00:00+00:00"
+    },
+    {
+      "fold": 18,
+      "train_rows": 44454,
+      "train_last_target": "2026-04-04 06:00:00+00:00",
+      "test_first_origin": "2026-04-04 07:00:00+00:00",
+      "test_last_origin": "2026-06-26 07:00:00+00:00"
+    },
+    {
+      "fold": 19,
+      "train_rows": 46470,
+      "train_last_target": "2026-06-27 06:00:00+00:00",
+      "test_first_origin": "2026-06-27 07:00:00+00:00",
+      "test_last_origin": "2026-09-18 07:00:00+00:00"
+    },
+    {
+      "fold": 20,
+      "train_rows": 48486,
+      "train_last_target": "2026-09-19 06:00:00+00:00",
+      "test_first_origin": "2026-09-19 07:00:00+00:00",
+      "test_last_origin": "2026-09-19 07:00:00+00:00"
+    },
+    {
+      "fold": "holdout",
+      "train_rows": 48510,
+      "train_last_target": "2026-09-20 06:00:00+00:00",
+      "test_first_origin": "2026-09-20 07:00:00+00:00",
+      "test_last_origin": "2026-11-14 08:00:00+00:00"
+    }
+  ],
+  "seconds_per_model": {
+    "baseline_weekly": 0.1,
+    "baseline_yearly": 0.1,
+    "baseline_mean7": 0.3,
+    "ridge": 12.2,
+    "lightgbm": 158.1,
+    "sarimax": 401.5
+  }
+}

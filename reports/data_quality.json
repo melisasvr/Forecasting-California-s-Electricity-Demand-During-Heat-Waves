@@ -1,0 +1,24 @@
+{
+  "raw_rows": 51466,
+  "timestamp_convention": "EIA hour-ending shifted to hour-beginning (UTC)",
+  "duplicate_timestamps": 0,
+  "null_or_non_numeric": 10,
+  "out_of_range_set_to_nan": 0,
+  "missing_hours_in_range": 1,
+  "gap_runs": [
+    {
+      "start": "2021-11-07 05:00:00+00:00",
+      "end": "2021-11-07 05:00:00+00:00",
+      "hours": 1
+    }
+  ],
+  "demand_nan_hours_total": 11,
+  "demand_first": "2020-12-31 23:00:00+00:00",
+  "demand_last": "2026-11-15 09:00:00+00:00",
+  "hours_trimmed_no_weather": [
+    "2020-12-31 23:00:00+00:00"
+  ],
+  "dataset_first": "2021-01-01 00:00:00+00:00",
+  "dataset_last": "2026-11-15 09:00:00+00:00",
+  "checks_failed": []
+}
